@@ -1,0 +1,189 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #D9B8FF;
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url('assets/background.png') no-repeat center/cover;
+    z-index: -1;
+}
+
+.title {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
+
+.description {
+    font-family: 'Fira Code', monospace; /* Coding-style font */
+    font-size: 1.2rem;
+    color: white;
+    text-align: right;
+    white-space: pre-wrap;
+    overflow: hidden;
+
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    
+    max-width: 300px;
+    z-index: 10; /* Make sure text stays above other elements */
+}
+
+/* 🔥 Blinking underscore cursor */
+.blinking-cursor::after {
+    content: "_";
+    display: inline-block;
+    animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* Ensure character stays behind the text */
+.character {
+    position: absolute;
+    bottom: -20px;
+    width: 600px;
+    max-width: 90%;
+    z-index: 5; /* Keep character below text */
+}
+
+/* 📱 Responsive: Center align text on mobile */
+@media (max-width: 768px) {
+    .description {
+        display: none; /* Hides the typing effect */
+    }
+}
+
+.more-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    background: white;
+    color: #333;
+    border-radius: 5px;
+}
+
+.character {
+    width: 600px; /* Increased from 300px */
+    max-width: 90%; /* Ensures responsiveness */
+    position: absolute;
+    bottom: -20px; /* Adjusts positioning */
+}
+
+.title-image {
+    width: 500px; /* Increase size */
+    max-width: 70%; /* Responsive */
+    position: absolute;
+    top: 20%; /* Adjust height */
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1; /* Moves it behind the character */
+    opacity: 0.9; /* Optional: Slight transparency */
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
+.credit-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: white;
+    
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    
+    text-align: left; /* Aligns left by default */
+}
+
+/* 📱 Mobile View: Center text at the top */
+@media (max-width: 768px) {
+    .credit-text {
+        font-size: 1.2rem;
+        top: 70px;
+        left: 50%;
+        bottom: auto; /* Remove bottom positioning */
+        transform: translateX(-50%);
+        text-align: center;
+    }
+}
+
+.quote-container {
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: left;
+}
+
+.quote-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.8rem;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.elapsed-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns text to the left */
+    gap: 5px; /* Adds space between elements */
+}
+
+.elapsed-label {
+    font-family: 'Fira Code', monospace; /* Coding-style font */
+    font-size: 1rem;
+    color: white;
+}
+
+.elapsed-clock {
+    font-family: 'Fira Code', monospace; /* Coding-style font */
+    font-size: 1.5rem; /* Increased font size */
+    font-weight: bold; /* Bold text */
+    color: white;
+}
+
+
+
+/* 📱 Mobile View: Keep everything left-aligned */
+@media (max-width: 768px) {
+    .quote-container {
+        text-align: center; /* Center quote */
+    }
+    .elapsed-container {
+        align-items: center; /* Center elapsed clocks */
+        text-align: center;
+    }
+}
