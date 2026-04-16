@@ -1,4 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap");
+
+:root {
+    --page-bg: #b091e4;
+    --panel-overlay: rgba(96, 65, 145, 0.25);
+    --card-bg: rgba(255, 255, 255, 0.18);
+    --card-border: rgba(255, 255, 255, 0.28);
+    --text-main: #fff7ff;
+    --text-soft: rgba(255, 247, 255, 0.8);
+    --glow: rgba(255, 214, 170, 0.55);
+}
 
 * {
     margin: 0;
@@ -6,184 +18,554 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+html,
+body,
+main {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+}
+
 body {
-    font-family: 'Poppins', sans-serif;
-    background: #D9B8FF;
-    color: white;
+    font-family: "Poppins", sans-serif;
+    background: var(--page-bg);
+    color: var(--text-main);
     overflow-x: hidden;
 }
 
-.container {
+button {
+    font: inherit;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.panel {
     position: relative;
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100svh;
+    overflow: clip;
+    isolation: isolate;
+}
+
+.panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        linear-gradient(180deg, rgba(135, 96, 184, 0.2), rgba(93, 59, 142, 0.35)),
+        radial-gradient(circle at top, rgba(255, 220, 184, 0.2), transparent 45%);
+    z-index: -2;
 }
 
 .background {
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background: url('assets/background.png') no-repeat center/cover;
-    z-index: -1;
+    inset: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.05);
+    z-index: -3;
 }
 
-.title {
-    font-size: 4rem;
-    font-weight: 700;
-    text-transform: uppercase;
+.hero-background {
+    background-image: url("assets/background.png");
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&display=swap');
-
-.description {
-    font-family: 'Fira Code', monospace; /* Coding-style font */
-    font-size: 1.2rem;
-    color: white;
-    text-align: right;
-    white-space: pre-wrap;
-    overflow: hidden;
-
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    
-    max-width: 300px;
-    z-index: 10; /* Make sure text stays above other elements */
+.story-background {
+    background-image: url("assets/second-slide-background.png");
+    background-position: center bottom;
+    transform: scale(1.08) translateY(-2.5rem);
+    transform-origin: center top;
 }
 
-/* 🔥 Blinking underscore cursor */
-.blinking-cursor::after {
-    content: "_";
-    display: inline-block;
-    animation: blink 0.8s infinite;
+.hero-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    padding: 1.25rem clamp(1.25rem, 3vw, 2.5rem) 0;
+    overflow: visible;
+    z-index: 2;
 }
 
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
+.hero-title-bar {
+    width: min(1200px, 100%);
+    margin: 0 auto;
+    padding-top: clamp(0.5rem, 2vh, 1.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 6;
 }
 
-/* Ensure character stays behind the text */
-.character {
-    position: absolute;
-    bottom: -20px;
-    width: 600px;
-    max-width: 90%;
-    z-index: 5; /* Keep character below text */
+.hero-layout {
+    --hero-bottom-space: clamp(9.5rem, 14vh, 12rem);
+    --side-text-line: clamp(9rem, 16vh, 12rem);
+    width: min(1200px, 100%);
+    min-height: calc(100svh - 10rem);
+    padding: clamp(0.5rem, 1vh, 1rem) 0 var(--hero-bottom-space);
+    display: grid;
+    grid-template-columns: minmax(180px, 1fr) minmax(260px, 34rem) minmax(180px, 1fr);
+    grid-template-areas: "credit art quote";
+    align-items: end;
+    gap: clamp(1.25rem, 3vw, 2.75rem);
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
 }
 
-/* 📱 Responsive: Center align text on mobile */
-@media (max-width: 768px) {
-    .description {
-        display: none; /* Hides the typing effect */
-    }
-}
-
-.more-btn {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 1rem;
-    border: none;
-    cursor: pointer;
-    background: white;
-    color: #333;
-    border-radius: 5px;
-}
-
-.character {
-    width: 600px; /* Increased from 300px */
-    max-width: 90%; /* Ensures responsiveness */
-    position: absolute;
-    bottom: -20px; /* Adjusts positioning */
+.hero-art {
+    grid-area: art;
+    position: static;
+    min-height: min(82svh, 860px);
+    padding-top: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    align-self: stretch;
+    z-index: 1;
 }
 
 .title-image {
-    width: 500px; /* Increase size */
-    max-width: 70%; /* Responsive */
+    position: relative;
+    width: min(640px, 92vw);
+    max-width: 100%;
+    margin: 0;
+    opacity: 0.95;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 30px rgba(79, 47, 124, 0.18));
+    z-index: 3;
+}
+
+.character {
     position: absolute;
-    top: 20%; /* Adjust height */
     left: 50%;
+    bottom: calc(-0.7 * var(--hero-bottom-space));
+    width: min(100%, clamp(680px, 48vw, 940px));
+    max-width: 100%;
+    display: block;
     transform: translateX(-50%);
-    z-index: -1; /* Moves it behind the character */
-    opacity: 0.9; /* Optional: Slight transparency */
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
-
-.credit-text {
-    font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
-    color: white;
-    
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    
-    text-align: left; /* Aligns left by default */
-}
-
-/* 📱 Mobile View: Center text at the top */
-@media (max-width: 768px) {
-    .credit-text {
-        font-size: 1.2rem;
-        top: 70px;
-        left: 50%;
-        bottom: auto; /* Remove bottom positioning */
-        transform: translateX(-50%);
-        text-align: center;
-    }
+    filter: drop-shadow(0 25px 45px rgba(79, 47, 124, 0.25));
+    z-index: 2;
 }
 
 .quote-container {
+    position: relative;
+    z-index: 6;
+    margin-top: 0;
+    max-width: min(100%, 17rem);
+    padding-bottom: var(--side-text-line);
+}
+
+.transition-clouds-wrap {
     position: absolute;
-    left: 10%;
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    top: 100%;
+    width: 100vw;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.transition-clouds {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow(0 18px 28px rgba(120, 72, 126, 0.18));
+}
+
+.quote-container {
+    grid-area: quote;
+    align-self: end;
+    justify-self: start;
     text-align: left;
 }
 
 .quote-text {
-    font-family: 'Caveat', cursive;
-    font-size: 1.8rem;
-    color: white;
-    margin-bottom: 10px;
+    font-family: "Caveat", cursive;
+    font-size: clamp(2rem, 3vw, 2.6rem);
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    text-shadow: 0 0 22px rgba(117, 72, 171, 0.25);
 }
 
 .elapsed-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Aligns text to the left */
-    gap: 5px; /* Adds space between elements */
+    display: grid;
+    gap: 0.35rem;
+    justify-items: start;
+}
+
+.elapsed-label,
+.elapsed-clock {
+    font-family: "Fira Code", monospace;
 }
 
 .elapsed-label {
-    font-family: 'Fira Code', monospace; /* Coding-style font */
-    font-size: 1rem;
-    color: white;
+    font-size: 0.95rem;
+    color: var(--text-soft);
 }
 
 .elapsed-clock {
-    font-family: 'Fira Code', monospace; /* Coding-style font */
-    font-size: 1.5rem; /* Increased font size */
-    font-weight: bold; /* Bold text */
-    color: white;
+    font-size: clamp(1.1rem, 1.75vw, 1.45rem);
+    font-weight: 600;
+    color: var(--text-main);
+    margin-bottom: 0.75rem;
 }
 
+.credit-text {
+    position: relative;
+    grid-area: credit;
+    left: auto;
+    bottom: auto;
+    font-family: "Caveat", cursive;
+    font-size: 33px;
+    color: var(--text-main);
+    z-index: 6;
+    align-self: center;
+    justify-self: end;
+    margin-bottom: 0;
+    text-align: left;
+}
 
+.scroll-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: var(--text-main);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+    z-index: 7;
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
 
-/* 📱 Mobile View: Keep everything left-aligned */
-@media (max-width: 768px) {
-    .quote-container {
-        text-align: center; /* Center quote */
+.scroll-indicator:hover {
+    background: rgba(255, 255, 255, 0.22);
+    border-color: rgba(255, 255, 255, 0.42);
+}
+
+.scroll-indicator::after {
+    content: "↓";
+    font-size: 1rem;
+}
+
+.story-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -3.5rem;
+    padding: 10rem clamp(1.25rem, 4vw, 3rem) 7rem;
+    z-index: 1;
+}
+
+.story-panel::before {
+    background:
+        linear-gradient(180deg, rgba(124, 86, 178, 0.04), rgba(234, 164, 164, 0.2)),
+        linear-gradient(180deg, rgba(92, 59, 142, 0.02), rgba(92, 59, 142, 0.24));
+}
+
+.story-content {
+    width: min(1080px, 100%);
+    padding: clamp(1.8rem, 5vw, 3rem);
+    border: 1px solid var(--card-border);
+    border-radius: 32px;
+    background: linear-gradient(180deg, rgba(131, 94, 186, 0.34), rgba(255, 192, 197, 0.12));
+    backdrop-filter: blur(16px);
+    box-shadow: 0 22px 60px rgba(79, 47, 124, 0.18);
+    position: relative;
+    z-index: 5;
+}
+
+.story-kicker {
+    font-family: "Fira Code", monospace;
+    font-size: 0.9rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--glow);
+    margin-bottom: 1rem;
+}
+
+.story-title {
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    line-height: 1.05;
+    max-width: 10ch;
+    margin-bottom: 1rem;
+}
+
+.story-description {
+    max-width: 60ch;
+    font-size: clamp(1rem, 1.4vw, 1.12rem);
+    line-height: 1.8;
+    color: var(--text-soft);
+    margin-bottom: 2rem;
+}
+
+.story-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.story-card {
+    padding: 1.35rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 22px;
+    background: var(--card-bg);
+    backdrop-filter: blur(8px);
+}
+
+.story-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 0.6rem;
+}
+
+.story-card p {
+    color: var(--text-soft);
+    line-height: 1.7;
+}
+
+@media (max-width: 960px) {
+    .hero-panel {
+        padding-top: 1rem;
     }
+
+    .hero-layout {
+        --hero-bottom-space: 10.75rem;
+        min-height: calc(100svh - 9rem);
+        padding-bottom: var(--hero-bottom-space);
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-areas:
+            "credit quote"
+            "art art";
+        gap: clamp(0.75rem, 2vw, 1.25rem);
+        justify-items: stretch;
+        align-items: end;
+    }
+
+    .quote-container {
+        width: min(100%, 13rem);
+        max-width: 13rem;
+        padding-inline: 0;
+        padding-bottom: 0;
+        margin-top: 0;
+        justify-self: end;
+    }
+
     .elapsed-container {
-        align-items: center; /* Center elapsed clocks */
+        justify-items: start;
+    }
+
+    .hero-art {
+        width: 100%;
+        min-height: min(60svh, 540px);
+        align-self: stretch;
+    }
+
+    .quote-text {
+        font-size: clamp(1.3rem, 3vw, 1.9rem);
+    }
+
+    .elapsed-label {
+        font-size: clamp(0.72rem, 1.4vw, 0.88rem);
+    }
+
+    .elapsed-clock {
+        font-size: clamp(0.84rem, 1.8vw, 1.05rem);
+        margin-bottom: 0.55rem;
+    }
+
+    .character {
+        width: min(100%, 420px);
+    }
+
+    .credit-text {
+        position: relative;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        justify-self: end;
+        align-self: center;
+        margin-bottom: 0;
+        font-size: clamp(1.55rem, 3vw, 1.9rem);
+        text-align: left;
+    }
+
+    .scroll-indicator {
+        bottom: 2rem;
+    }
+
+    .story-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .story-title,
+    .story-description {
+        max-width: none;
+    }
+
+    .story-panel {
+        margin-top: -2.5rem;
+        padding-top: 8rem;
+    }
+
+    .transition-clouds-wrap {
+        transform: translate(-50%, -52%);
+    }
+}
+
+@media (max-width: 640px) {
+    .hero-panel {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.85rem 0 0;
+    }
+
+    .hero-title-bar {
+        max-width: none;
+        padding-top: 1rem;
+        margin-bottom: -0.4rem;
+        width: auto;
+        padding-inline: 1rem;
+    }
+
+    .hero-layout {
+        --hero-bottom-space: 10.75rem;
+        height: calc(100svh - 8rem);
+        min-height: calc(100svh - 8rem);
+        max-width: none;
+        width: auto;
+        margin: 0;
+        padding: 1.5rem 1rem var(--hero-bottom-space);
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "quote"
+            "credit"
+            "art";
+        grid-template-rows: auto auto minmax(0, 1fr);
+        gap: 0.2rem;
+        justify-items: center;
+    }
+
+    .hero-art {
+        width: 100%;
+        min-height: 0;
+        height: 100%;
+        align-self: stretch;
+    }
+
+    .title-image {
+        width: min(360px, 78vw);
+    }
+
+    .quote-container {
+        width: min(100%, 16rem);
+        max-width: 16rem;
+        padding-bottom: 0;
+        align-self: start;
+        justify-self: center;
         text-align: center;
+        margin-top: 0.2rem;
+    }
+
+    .elapsed-container {
+        justify-items: center;
+        text-align: center;
+    }
+
+    .quote-text {
+        font-size: clamp(1rem, 4vw, 1.28rem);
+        margin-bottom: 0.7rem;
+        text-align: center;
+    }
+
+    .elapsed-label {
+        font-size: 0.68rem;
+        text-align: center;
+    }
+
+    .elapsed-clock {
+        font-size: clamp(0.72rem, 2.7vw, 0.92rem);
+        margin-bottom: 0.45rem;
+        text-align: center;
+    }
+
+    .transition-clouds-wrap {
+        left: 0;
+        right: 0;
+        width: auto;
+        transform: translateY(-50%);
+    }
+
+    .transition-clouds {
+        width: 100%;
+        max-height: none;
+    }
+
+    .character {
+        width: min(100%, 320px);
+    }
+
+    .credit-text {
+        position: relative;
+        grid-area: credit;
+        left: auto;
+        bottom: auto;
+        transform: none;
+        margin: 0;
+        font-size: clamp(1.25rem, 5vw, 1.7rem);
+        text-align: center;
+        justify-self: center;
+        align-self: start;
+    }
+
+    .scroll-indicator {
+        left: 1rem;
+        right: 1rem;
+        bottom: 1.75rem;
+        width: auto;
+        justify-content: center;
+        transform: none;
+    }
+
+    .story-panel {
+        width: 100%;
+        max-width: 100%;
+        margin-top: -1.75rem;
+        padding: 6.5rem 0 5rem;
+    }
+
+    .story-content {
+        width: auto;
+        max-width: none;
+        margin: 0 1rem;
+        border-radius: 24px;
     }
 }
